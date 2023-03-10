@@ -1,9 +1,10 @@
 const ethers = required("ethers");
+const fs = require("fs-extra");
 
 async function main() {
   // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
-  const provider = new ethers.providers.JsonRpcProvider("http://0.0.0.0:8545");
-  const wallet = new ethers.Wallet("WALLET_PRIVATE_KEY", provider);
+  const provider = new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_PROVIDER_URL);
+  const wallet = new ethers.Wallet(proccess.env.WALLET_PRIVATE_KEY, provider);
 
   const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf-8");
   const binary = fs.readFileSync(
