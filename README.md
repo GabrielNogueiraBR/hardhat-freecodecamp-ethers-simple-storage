@@ -1,1 +1,1 @@
-# hardhat-freecodecamp-ethers-simple-storage
+# Hardhat FreeCodeCamp: ethers-simple-storage
