@@ -1,4 +1,4 @@
-const ethers = required("ethers");
+const ethers = require("ethers");
 const fs = require("fs-extra");
 
 async function main() {
