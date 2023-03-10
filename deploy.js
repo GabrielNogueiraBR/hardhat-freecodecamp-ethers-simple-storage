@@ -1,10 +1,14 @@
+require("dotenv").config();
 const ethers = require("ethers");
 const fs = require("fs-extra");
 
 async function main() {
   // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
-  const provider = new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_PROVIDER_URL);
-  const wallet = new ethers.Wallet(proccess.env.WALLET_PRIVATE_KEY, provider);
+
+  const provider = new ethers.JsonRpcProvider(
+    process.env.JSON_RPC_PROVIDER_URL
+  );
+  const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider);
 
   const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf-8");
   const binary = fs.readFileSync(
@@ -21,8 +25,12 @@ async function main() {
 }
 
 main()
-  .then(proccess.exit(0))
+  .then(() => {
+    console.log("Deploy concluído!");
+    process.exit(0);
+  })
   .catch((error) => {
     console.log(error);
-    proccess.exit(1);
+    console.log("Ops! Algo deu errado.");
+    process.exit(1);
   });
