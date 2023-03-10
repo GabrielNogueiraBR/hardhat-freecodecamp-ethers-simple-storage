@@ -5,8 +5,18 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider("http://0.0.0.0:8545");
   const wallet = new ethers.Wallet("WALLET_PRIVATE_KEY", provider);
 
-  
+  const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf-8");
+  const binary = fs.readFileSync(
+    "./SimpleStorage_sol_SimpleStorage.bin",
+    "utf-8"
+  );
 
+  // Em ethers.js 'factory' é apenas um objeto que utilizamos para deploy dos contratos
+  const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
+  console.log("Deploying, please wait...");
+
+  const contract = await contractFactory.deploy();
+  console.log(contract);
 }
 
 main()
