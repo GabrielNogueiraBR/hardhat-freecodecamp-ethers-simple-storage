@@ -8,6 +8,11 @@ async function main() {
   const ganacheProvider = ganache.provider({
     wallet: { seed: "myCustomSeed" },
     miner: { defaultGasPrice: "0x00030D40" },
+    logging: {
+      debug: false,
+      quiet: true,
+      verbose: false,
+    },
   });
 
   // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
@@ -45,8 +50,6 @@ async function main() {
   console.log("==============================================");
   console.log("Update Favorite Number: ", updateFavoriteNumber.toString());
   console.log("==============================================");
-
-
 }
 
 main()
