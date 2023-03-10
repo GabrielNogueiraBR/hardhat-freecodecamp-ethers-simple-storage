@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "yarn solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol",
-    "deploy": "node deploy.js",
-    "ganache": "ganache --wallet.seed myCustomSeed"
+    "deploy": "node deploy.js"
   },
   "dependencies": {
     "dotenv": "^16.0.3",

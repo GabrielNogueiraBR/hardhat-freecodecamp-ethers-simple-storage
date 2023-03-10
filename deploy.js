@@ -4,9 +4,14 @@ const ganache = require("ganache");
 const fs = require("fs-extra");
 
 async function main() {
-  // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
+  // Instancia da "blockchain" local
+  const ganacheProvider = ganache.provider({
+    wallet: { seed: "myCustomSeed" },
+    miner: { defaultGasPrice: "0x00030D40" },
+  });
 
-  const provider = new ethers.BrowserProvider(ganache.provider());
+  // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
+  const provider = new ethers.BrowserProvider(ganacheProvider);
   const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider);
 
   const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf-8");
@@ -27,6 +32,8 @@ async function main() {
 
   console.log("Aqui está o recibo da transação: ");
   console.log(transactionReceipt);
+
+  const currentFavoriteNumber = await contract.retrieve();
 }
 
 main()
