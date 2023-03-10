@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "script": {
-    "compile": "yarn solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol"
+  "scripts": {
+    "compile": "yarn solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol",
+    "deploy": "node deploy.js",
+    "ganache": "ganache --wallet.seed myCustomSeed"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
     "ethers": "^6.1.0",
+    "ganache": "^7.7.6",
     "solc": "0.8.7-fixed"
   }
 }

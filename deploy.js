@@ -1,13 +1,12 @@
 require("dotenv").config();
 const ethers = require("ethers");
+const ganache = require("ganache");
 const fs = require("fs-extra");
 
 async function main() {
   // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
 
-  const provider = new ethers.JsonRpcProvider(
-    process.env.JSON_RPC_PROVIDER_URL
-  );
+  const provider = new ethers.BrowserProvider(ganache.provider());
   const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider);
 
   const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf-8");
@@ -21,7 +20,13 @@ async function main() {
   console.log("Deploying, please wait...");
 
   const contract = await contractFactory.deploy();
-  console.log(contract);
+  const transactionReceipt = await contract.deploymentTransaction.wait(1);
+
+  console.log("Aqui está o deploy da transação: ");
+  console.log(contract.deploymentTransaction);
+
+  console.log("Aqui está o recibo da transação: ");
+  console.log(transactionReceipt);
 }
 
 main()
