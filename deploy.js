@@ -26,17 +26,13 @@ async function main() {
     console.log(`Contract Address: ${await contract.getAddress()}`)
 
     const currentFavoriteNumber = await contract.retrieve()
-    console.log("==============================================")
     console.log("Current Favorite Number: ", currentFavoriteNumber.toString())
-    console.log("==============================================")
 
     const transactionStoreResponse = await contract.store("7")
-    const transactionStoreReceipt = await transactionStoreResponse.wait(1)
+    await transactionStoreResponse.wait(1)
 
     const updateFavoriteNumber = await contract.retrieve()
-    console.log("==============================================")
     console.log("Update Favorite Number: ", updateFavoriteNumber.toString())
-    console.log("==============================================")
 }
 
 main()
