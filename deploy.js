@@ -1,22 +1,10 @@
 require("dotenv").config()
 const ethers = require("ethers")
-const ganache = require("ganache")
 const fs = require("fs-extra")
 
 async function main() {
-    // Instancia da "blockchain" local
-    const ganacheProvider = ganache.provider({
-        wallet: { seed: "myCustomSeed" },
-        miner: { defaultGasPrice: "0x00030D40" },
-        logging: {
-            debug: false,
-            quiet: true,
-            verbose: false,
-        },
-    })
-
     // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
-    const provider = new ethers.BrowserProvider(ganacheProvider)
+    const provider = new ethers.JsonRpcProvider(process.env.RPC_URL)
     const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider)
 
     const abi = fs.readFileSync(
@@ -33,7 +21,9 @@ async function main() {
     console.log("Deploying, please wait...")
 
     const contract = await contractFactory.deploy()
-    const transactionReceipt = await contract.deploymentTransaction().wait()
+    const transactionReceipt = await contract.deploymentTransaction().wait(1)
+
+    console.log(`Contract Address: ${await contract.getAddress()}`)
 
     console.log("Aqui está o deploy da transação: ")
     console.log(contract.deploymentTransaction)
