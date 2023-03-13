@@ -1,11 +1,11 @@
-require("dotenv").config()
-const ethers = require("ethers")
-const fs = require("fs-extra")
+import { ethers } from "ethers"
+import * as fs from "fs-extra"
+import "dotenv/config"
 
 async function main() {
     // Essas duas linhas nos fornecem tudo que precisamos para interagir com Smart Contracts
-    const provider = new ethers.JsonRpcProvider(process.env.RPC_URL)
-    const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider)
+    const provider = new ethers.JsonRpcProvider(process.env.RPC_URL!)
+    const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY!, provider)
 
     const abi = fs.readFileSync(
         "./SimpleStorage_sol_SimpleStorage.abi",
@@ -20,8 +20,8 @@ async function main() {
     const contractFactory = new ethers.ContractFactory(abi, binary, wallet)
     console.log("Deploying, please wait...")
 
-    const contract = await contractFactory.deploy()
-    await contract.deploymentTransaction().wait(1)
+    const contract = await contractFactory.deploy() as any
+    await contract.deploymentTransaction()?.wait(1)
 
     console.log(`Contract Address: ${await contract.getAddress()}`)
 

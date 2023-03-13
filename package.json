@@ -5,12 +5,15 @@
     "license": "MIT",
     "scripts": {
         "compile": "yarn solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol",
-        "deploy": "node deploy.js"
+        "deploy": "ts-node deploy.ts"
     },
     "dependencies": {
+        "@types/fs-extra": "^11.0.1",
         "dotenv": "^16.0.3",
         "ethers": "^6.1.0",
-        "solc": "0.8.7-fixed"
+        "solc": "0.8.7-fixed",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.5"
     },
     "devDependencies": {
         "prettier": "^2.8.4",
