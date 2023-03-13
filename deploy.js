@@ -21,15 +21,9 @@ async function main() {
     console.log("Deploying, please wait...")
 
     const contract = await contractFactory.deploy()
-    const transactionReceipt = await contract.deploymentTransaction().wait(1)
+    await contract.deploymentTransaction().wait(1)
 
     console.log(`Contract Address: ${await contract.getAddress()}`)
-
-    console.log("Aqui está o deploy da transação: ")
-    console.log(contract.deploymentTransaction)
-
-    console.log("Aqui está o recibo da transação: ")
-    console.log(transactionReceipt)
 
     const currentFavoriteNumber = await contract.retrieve()
     console.log("==============================================")
